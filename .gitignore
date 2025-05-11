@@ -1,7 +1,7 @@
 # Code editors
 
 .idea
-**/__pycache/**
+**/__pycache__/**
 **.pyc
 
 # Generated models
