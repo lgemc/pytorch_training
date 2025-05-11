@@ -1,0 +1,6 @@
+outs:
+- md5: 8f6444c327494435b50125c20ccf3fba.dir
+  size: 54950048
+  nfiles: 4
+  hash: md5
+  path: stubs
