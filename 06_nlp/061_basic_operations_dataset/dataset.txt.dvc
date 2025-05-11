@@ -1,0 +1,5 @@
+outs:
+- md5: b0e4065c8626fc52e4e788590a9e7455
+  size: 1520
+  hash: md5
+  path: dataset.txt
