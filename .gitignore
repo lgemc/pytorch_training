@@ -1,0 +1,11 @@
+# Code editors
+
+.idea
+**/__pycache/**
+**.pyc
+
+# Generated models
+**/*.pth
+
+# Ipynb backups
+**.ipynb_checkpoints**
