@@ -1,0 +1,7 @@
+# faiss https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
+torch
+jupyter
+notebook
+pandas
+matplotlib
+transformers
