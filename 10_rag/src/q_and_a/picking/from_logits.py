@@ -1,6 +1,8 @@
+from typing import Callable
+
 import torch
 
-def from_logits(
+def _from_logits(
         tokenizer,
         logits: torch.Tensor,
         options: list[str],
@@ -35,3 +37,19 @@ def from_logits(
     # Choose the option with the highest score
     chosen_option = scores.index(max(scores))
     return chosen_option
+
+def build_from_logits(
+    tokenizer,
+    options: list[str],
+) -> Callable[[torch.Tensor], int]:
+    """
+    Builds a function that can be used to pick an option from a list of options based on the given logits.
+
+    Args:
+        tokenizer: The tokenizer to use for encoding the options.
+        options (list[str]): The list of options to choose from.
+
+    Returns:
+        Callable[[torch.Tensor], int]: A function that takes logits and returns the index of the chosen option.
+    """
+    return lambda model_out: _from_logits(tokenizer, model_out, options)

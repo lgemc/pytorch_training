@@ -1,6 +1,10 @@
-from typing import Callable, List, Tuple
+from typing import Callable, List, Tuple, Any
 
 import torch
+
+from typing import Callable, List, Tuple
+
+ForwardType = Callable[[str, List[str]], Any]
 
 
 def forward(
@@ -30,14 +34,40 @@ def forward(
         the response from the language model.
     """
     _, items = augmenter(question, k_augmentations)
-    print(f"Augmented items: {items}")
     # Generate the prompt
     prompt = prompt_builder(question, options, items)
-
-    print(f"Prompt: {prompt}")
 
     result = tokenizer(prompt, return_tensors="pt").to(device)
 
     # Use the language model to generate a response
     with torch.no_grad():
         return llm(**result, do_sample=False)
+
+
+def build_forwarder(
+    llm,
+    tokenizer,
+    augmenter: Callable[[str, int], Tuple[List[int], List[str]]],
+    k_augmentations: int,
+    prompt_builder: Callable[[str, List[str], List[str]], str],
+    device: str,
+) -> Callable[[str, List[str]], str]:
+    """
+    Builds a forward function that can be used to generate responses from the language model.
+
+    Returns:
+        Callable: A function that takes a question and a list of options and returns the generated response.
+    """
+    def forward_fn(question: str, options: List[str]) -> Any:
+        return forward(
+            llm=llm,
+            tokenizer=tokenizer,
+            augmenter=augmenter,
+            k_augmentations=k_augmentations,
+            prompt_builder=prompt_builder,
+            question=question,
+            options=options,
+            device=device,
+        )
+
+    return forward_fn

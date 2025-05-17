@@ -1,2 +1,3 @@
 outputs/store_pubmed_tokenizer/pubmed_500K.index
 /outputs
+.dvc/config

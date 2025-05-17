@@ -13,6 +13,8 @@ class TestPrompt(unittest.TestCase):
         self.assertIn("Options:", result)
         self.assertIn("Answer:", result)
         self.assertIn("Context:", result)
+        print(result)
+
         for item in augmented_items:
             self.assertIn(item, result)
         for option in options:
