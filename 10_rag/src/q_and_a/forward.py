@@ -1,5 +1,8 @@
 from typing import Callable, List, Tuple
 
+import torch
+
+
 def forward(
         llm,
         tokenizer,
@@ -36,4 +39,5 @@ def forward(
     result = tokenizer(prompt, return_tensors="pt").to(device)
 
     # Use the language model to generate a response
-    return llm(**result)
+    with torch.no_grad():
+        return llm(**result, do_sample=False)

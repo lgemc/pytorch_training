@@ -20,14 +20,16 @@ def from_logits(
     probs = torch.softmax(logits, dim=0).tolist()
 
     options_representation = [
-        tokenizer.encode(option, add_special_tokens=False)
+        tokenizer.encode(option, add_special_tokens=False)[0]
         for option in options
     ]
 
+    print(f"Options: {options_representation}")
+
     # Calculate the score for each option
     scores = []
-    for i, option in enumerate(options_representation):
-        score = sum(probs[j] for j in option)
+    for _, option in enumerate(options_representation):
+        score = probs[option]
         scores.append(score)
 
     # Choose the option with the highest score

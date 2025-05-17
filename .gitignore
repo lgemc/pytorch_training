@@ -9,3 +9,4 @@
 
 # Ipynb backups
 **.ipynb_checkpoints**
+.dvc/config
