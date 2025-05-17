@@ -16,7 +16,7 @@ class LoraLinear(torch.nn.Module):
     def train(self, mode=True):
         self.training = mode
         if not mode:
-            self.merged_weight = (self.linear_layer.weight.transpose(0,1) + self.lora_A @ self.lora_B).to(torch.float16) # Se cambia el tipo de la matriz a float16
+            self.merged_weight = (self.linear_layer.weight.transpose(0,1) + self.lora_A @ self.lora_B).to(torch.float16)
 
     def forward(self, x):
         if self.training:

@@ -1,11 +1,12 @@
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+from model.lora import LoraLinear
 
 checkpoints_folder = "checkpoints"
-from model.lora import LoraLinear
 def train(
     model,
+    data_collator,
     train_dataset,
     eval_dataset,
     num_epochs=3,
@@ -16,11 +17,14 @@ def train(
     print("Iniciando entrenamiento...")
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
     model.to(device)
-    train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size, shuffle=False)
+    train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, collate_fn=data_collator)
+    eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size, shuffle=False, collate_fn=data_collator)
 
     num_training_steps = num_epochs * len(train_dataloader)
     progress_bar = tqdm(range(num_training_steps))
+
+    for param in model.parameters():
+        param.requires_grad = False
 
     for layer in model.model.layers:
         if hasattr(layer, 'self_attn'):
@@ -34,7 +38,7 @@ def train(
         print(f"\n--- Época {epoch + 1}/{num_epochs} ---")
 
         for batch_idx, batch in enumerate(train_dataloader):
-            x, _ = batch
+            x = batch
             x = {k: v.to(device) for k, v in x.items()}
             outputs = model(**x)
             loss = outputs.loss

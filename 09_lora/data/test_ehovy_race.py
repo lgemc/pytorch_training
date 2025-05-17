@@ -18,3 +18,4 @@ class TestEhovyRaceDataset(unittest.TestCase):
         dataset = EhovyRaceDataset(variation="high", split="train", max_article_size=max_size)
 
         self.assertEqual(803, len(dataset))
+        print(dataset[100])

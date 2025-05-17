@@ -19,14 +19,12 @@ class Llama32Tokenizer(nn.Module):
                 max_length=512,
                 padding="max_length",
                 truncation=True,
-                return_tensors="pt"
                 ):
         inputs = self.tokenizer(
             text,
             max_length=max_length,
             padding=padding,
             truncation=truncation,
-            return_tensors=return_tensors,
         ).to(self.device)
         return inputs
 

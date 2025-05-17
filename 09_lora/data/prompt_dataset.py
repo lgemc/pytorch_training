@@ -12,29 +12,6 @@ def prompt_with_question(example: dict, include_answer=False) -> str:
 
     return prompt
 
-def simple_prompt_with_question(example: dict) -> str:
-    """
-    A simpler version of the prompt without the "Context" and "Question" labels.
-    """
-    options_str = "\n".join([f"{chr(65 + i)}) {opt}" for i, opt in enumerate(example['options'])])
-    prompt = f"{example['article']}\n\n" + \
-        f"{example['question']}\n\n" + \
-        f"{options_str}\n\n" + \
-        f"Answer:"  # The model is expected to fill this part
-
-    return prompt
-
-def extract_answer(output: str) -> str:
-    """
-    Extract the answer from the model output.
-    The answer is expected to be in the format "Answer: A", "Answer: B", etc.
-    """
-    if "Answer:" in output:
-        answer_part = output.split("Answer:")[-1].strip()
-        if answer_part and len(answer_part) == 1 and answer_part.isalpha():
-            return answer_part.upper()
-    return None
-
 
 class PromptedEhvoy(Dataset):
     def __init__(self, dataset: EhovyRaceDataset, build_prompt=prompt_with_question, include_answer=False):

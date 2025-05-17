@@ -2,7 +2,7 @@ import unittest
 import os
 import torch.cuda
 from huggingface_hub import login
-login(token=os.env("HF_TOKEN"))
+login("<<token here>>")
 
 from data.ehovy_race import EhovyRaceDataset
 from data.prompt_dataset import PromptedEhvoy, extract_answer
@@ -17,7 +17,7 @@ class TestLlama32Model(unittest.TestCase):
     def setUp(self):
         # Initialize the tokenizer and model
         self.tokenizer = Llama32Tokenizer(model_1B)
-        self.model = Llama32(model_1B, temperature=0.1, top_k=1, do_sample=False)
+        self.model = Llama32(model_1B, do_sample=False)
 
         # Initialize the dataset
         self.ehovy_dataset = EhovyRaceDataset(variation="high", split="train")
@@ -57,7 +57,7 @@ class TestLlama32Model(unittest.TestCase):
             if answer == y:
                 correct_predictions += 1
 
-            if i % 100 == 0:
+            if i % 3 == 0:
                 print(f"Processed {i} samples. Current accuracy: {correct_predictions / (i + 1):.2f}")
 
         accuracy = correct_predictions / total_predictions

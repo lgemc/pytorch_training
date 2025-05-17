@@ -17,7 +17,7 @@ class Llama32Lora(nn.Module):
         self.model = self.load_model()
 
     def load_model(self):
-        model = AutoModelForCausalLM.from_pretrained(self.model_name, torch_dtype=torch.float16).to(self.device)
+        model = AutoModelForCausalLM.from_pretrained(self.model_name).to(self.device)
         for param in model.parameters():
             param.requires_grad = False
 

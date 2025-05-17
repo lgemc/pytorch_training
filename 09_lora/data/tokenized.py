@@ -14,24 +14,15 @@ class TokenizedDataset(Dataset):
         return len(self.data)
 
     def __getitem__(self, idx):
-        x, y = self.data[idx]
-        y = f"{x} {y}"
+        x, _ = self.data[idx]
 
         x_tokenized = self.tokenizer(
             x,
             padding="max_length",
             truncation=True,
             max_length=self.max_length,
-            return_tensors="pt",
         )
+        x_tokenized["labels"] = x_tokenized["input_ids"].copy()
 
-        y_tokenized = self.tokenizer(
-            y,
-            padding="max_length",
-            truncation=True,
-            max_length=self.max_length,
-            return_tensors="pt",
-        )
-
-        return x_tokenized, y_tokenized
+        return x_tokenized
 

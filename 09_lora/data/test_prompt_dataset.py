@@ -24,8 +24,8 @@ class TestPromptedEhvyDataset(unittest.TestCase):
 
     def test_prompted_ehvy_dataset(self):
         # Initialize the dataset
-        ehovy_dataset = EhovyRaceDataset(variation="high", split="train")
-        prompted_dataset = PromptedEhvoy(ehovy_dataset)
+        ehovy_dataset = EhovyRaceDataset(variation="high", split="test", max_article_size=800)
+        prompted_dataset = PromptedEhvoy(ehovy_dataset, include_answer=True)
 
         # Check length
         self.assertEqual(len(prompted_dataset), len(ehovy_dataset))
@@ -33,11 +33,13 @@ class TestPromptedEhvyDataset(unittest.TestCase):
         # Check a sample item
         sample_item, answer = prompted_dataset[0]
         self.assertIn("Context:", sample_item)
-        self.assertIn("Questions:", sample_item)
+        self.assertIn("Question:", sample_item)
         self.assertIn("Options:", sample_item)
         self.assertIn("Answer:", sample_item)
         self.assertIsInstance(answer, str)
         self.assertIn(answer, ['A', 'B', 'C', 'D'])
+
+        print(len(prompted_dataset))
 
     def test_extract_answer(self):
         # Test with a valid output
@@ -73,3 +75,4 @@ class TestPromptedEhvyDataset(unittest.TestCase):
 
         prompt = prompt_with_question(example, include_answer=True)
         self.assertEqual(prompt, expected_prompt)
+
