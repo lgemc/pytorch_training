@@ -40,6 +40,8 @@ def evaluate(
         if picked_idx == answer_idx:
             correct += 1
 
+        if i % 10 == 0:
+            print(f"Right answer: {answer_idx}, picked: {picked_idx}")
         if i % log_each == 0:
             # print current accuracy
             print(f"Accuracy at {i}: {correct / (i + 1):.2f}")

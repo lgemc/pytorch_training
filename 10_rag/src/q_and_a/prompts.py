@@ -32,4 +32,4 @@ Question: {question}
 Options:
 {options_str}
 
-Answer:"""
+Answer(pick one between A, B, C and D):"""

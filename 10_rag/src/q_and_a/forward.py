@@ -36,6 +36,7 @@ def forward(
     _, items = augmenter(question, k_augmentations)
     # Generate the prompt
     prompt = prompt_builder(question, options, items)
+    print(f"Prompt: {prompt}")
 
     result = tokenizer(prompt, return_tensors="pt").to(device)
 

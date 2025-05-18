@@ -26,7 +26,6 @@ def _from_logits(
         for option in options
     ]
 
-    print(f"Options: {options_representation}")
 
     # Calculate the score for each option
     scores = []

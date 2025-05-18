@@ -11,7 +11,7 @@ class TestPrompt(unittest.TestCase):
         result = prompt(question, options, augmented_items)
         self.assertIn(question, result)
         self.assertIn("Options:", result)
-        self.assertIn("Answer:", result)
+        self.assertIn("Answer", result)
         self.assertIn("Context:", result)
         print(result)
 
