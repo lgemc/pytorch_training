@@ -3,6 +3,14 @@ import json
 from torch.utils.data import Dataset
 
 class TrainAndEval(Dataset):
+    """
+    This loads a map which contains:
+    - "id"
+    - "excerpt"
+    - "question"
+    - "statement": the correct option
+    - "distractors"
+    """
     def __init__(self, file_path: str):
         self.file_path = file_path
         self._raw_data = []
