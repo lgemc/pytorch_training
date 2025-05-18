@@ -17,6 +17,7 @@ def forward(
         question: str,
         options: List[str],
         device: str,
+        causal_llm=False,
 ):
     """
     Picks an option from a list of options based on the given question.
@@ -39,10 +40,13 @@ def forward(
     prompt = prompt_builder(question, options, items)
 
     result = tokenizer(prompt, return_tensors="pt").to(device)
-
     # Use the language model to generate a response
+    if causal_llm:
+        with torch.no_grad():
+            return  llm(**result, do_sample=False)
     with torch.no_grad():
-        return llm(**result, do_sample=False)
+        out = llm(**result)
+        return out
 
 
 def build_forwarder(
@@ -52,6 +56,7 @@ def build_forwarder(
     k_augmentations: int,
     prompt_builder: Callable[[str, List[str], List[str]], str],
     device: str,
+    causal_llm: bool = False,
 ) -> Callable[[str, List[str]], str]:
     """
     Builds a forward function that can be used to generate responses from the language model.
@@ -69,6 +74,7 @@ def build_forwarder(
             question=question,
             options=options,
             device=device,
+            causal_llm=causal_llm,
         )
 
     return forward_fn
