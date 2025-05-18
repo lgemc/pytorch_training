@@ -32,4 +32,4 @@ Question: {question}
 Options:
 {options_str}
 
-Answer(pick one between A, B, C and D):"""
+Between A, B, C and D the best option is"""
