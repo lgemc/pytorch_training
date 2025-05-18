@@ -8,4 +8,6 @@ def load_tokenizer():
     """
     # Load the model
     model = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-1B")
+    model.pad_token = model.eos_token
+
     return model

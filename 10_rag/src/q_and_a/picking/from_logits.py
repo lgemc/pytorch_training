@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, List
 
 import torch
 
@@ -35,7 +35,9 @@ def _from_logits(
 
     # Choose the option with the highest score
     chosen_option = scores.index(max(scores))
+
     return chosen_option
+
 
 def build_from_logits(
     tokenizer,

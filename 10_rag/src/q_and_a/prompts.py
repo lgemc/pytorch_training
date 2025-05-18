@@ -23,13 +23,9 @@ def prompt(
         str: The formatted prompt string.
     """
     return f"""You are an expert in multiple-choice questions. Your task is to select the best answer from the given options based on the provided context. 
-
-Context:
-{context}
-
 Question: {question}
 
 Options:
 {options_str}
 
-Between A, B, C and D the best option is"""
+Between A, B, C and D the best option is """

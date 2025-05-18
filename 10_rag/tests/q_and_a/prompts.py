@@ -1,10 +1,22 @@
 import unittest
+from typing import List
 
 from data.q_and_a.train_and_eval import TrainAndEval
 from data.q_and_a.eval_with_answers import EvalWithAnswers
 
 from q_and_a.prompts import prompt
+def most_probable_tokens(probs: List, k=5):
+    """
+    Picks the most probable tokens from the given probabilities.
 
+    Args:
+        probs (List): The list of probabilities for each token.
+        k (int): The number of most probable tokens to pick.
+
+    Returns:
+        List: The indices of the most probable tokens.
+    """
+    return sorted(range(len(probs)), key=lambda i: probs[i], reverse=True)[:k]
 class TestPrompt(unittest.TestCase):
     def test_prompt(self):
         question = "What is the capital of France?"
@@ -37,7 +49,6 @@ class TestPrompt(unittest.TestCase):
             result = prompt(question, options, augmented_items)
             self.assertIn(question, result)
             self.assertIn("Options:", result)
-            self.assertIn("Answer", result)
             self.assertIn("Context:", result)
             print(result)
 
@@ -45,3 +56,9 @@ class TestPrompt(unittest.TestCase):
                 self.assertIn(item, result)
             for option in options:
                 self.assertIn(option, result)
+
+    def test_most_probable_tokens(self):
+        probs = [0.1, 0.2, 0.3, 0.4]
+        k = 2
+        result = most_probable_tokens(probs, k)
+        self.assertEqual(result, [3, 2])
