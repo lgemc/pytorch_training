@@ -5,3 +5,6 @@ notebook
 pandas
 matplotlib
 transformers
+peft
+accelerate
+bitsandbytes
