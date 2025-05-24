@@ -2,7 +2,7 @@ from typing import List, Callable, Optional
 
 # Prompter receive a question, a list of possible answers and an augmented list of information
 # that can serve as context for the question, and returns a prompted version of the question
-Prompter = Callable[[str, List[str], Optional[List[str]]], str]
+Prompter = Callable[[str, List[str], Optional[List[str]], Optional[str]], str]
 
 def prompt(
     question: str,
@@ -36,3 +36,43 @@ Options:
 {options_str}
 
 Between A, B, C and D the best option is """
+
+def prompt_with_answer(
+    question: str,
+    options: List[str],
+    augmented_items: List[str] = None,
+    answer: str = "",
+) -> str:
+    context = ""
+    if augmented_items is not None:
+        context = "\n".join(augmented_items)
+
+    options_str = "\n".join(
+        [f"{chr(65 + i)}. {option}" for i, option in enumerate(options)]
+    )
+
+    """
+    Generates a prompt for the language model based on the question, options, and augmented items.
+
+    Args:
+        question (str): The question to ask.
+        options (List[str]): The list of options to choose from.
+        augmented_items (List[str]): The augmented items to include in the prompt.
+
+    Returns:
+        str: The formatted prompt string.
+    """
+    return f"""You are an expert at answering multiple-choice questions. Given the context below, carefully read the question and select the single best answer from the options provided.
+
+Context:
+{context}
+
+Question:
+{question}
+
+Options:
+{options_str}
+
+Please respond only with the letter (A, B, C, or D) of the best option.
+
+The correct answer is: {answer}"""

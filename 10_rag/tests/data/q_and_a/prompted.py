@@ -24,5 +24,7 @@ class TestPrompted(unittest.TestCase):
 
         self.assertIn(answer, range(4))
 
+        print(text, answer)
+
 def mock_prompter(question, options, _):
             return f"Question: {question}, Options: {options}"
