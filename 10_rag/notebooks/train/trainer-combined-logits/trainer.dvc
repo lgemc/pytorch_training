@@ -1,0 +1,6 @@
+outs:
+- md5: adcc58b9f3b186f3bbf272602b12a0ae.dir
+  size: 20688615
+  nfiles: 7
+  hash: md5
+  path: trainer
