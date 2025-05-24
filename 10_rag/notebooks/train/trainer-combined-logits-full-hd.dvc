@@ -1,0 +1,6 @@
+outs:
+- md5: 7648a443988c65edddccdc6b158bbf6f.dir
+  size: 57106947
+  nfiles: 10
+  hash: md5
+  path: trainer-combined-logits-full-hd
