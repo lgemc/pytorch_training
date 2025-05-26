@@ -1,0 +1,5 @@
+outs:
+- md5: cde21c3774ad1294f215fcb6190d98ac
+  size: 867
+  hash: md5
+  path: adapter_config.json

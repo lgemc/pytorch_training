@@ -1,0 +1,5 @@
+outs:
+- md5: 6432b90a832be0e3575e1ba952e90cb8
+  size: 970867300
+  hash: md5
+  path: pubmed_500K.json

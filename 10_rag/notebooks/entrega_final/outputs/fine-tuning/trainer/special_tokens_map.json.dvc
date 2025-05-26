@@ -1,0 +1,5 @@
+outs:
+- md5: 7467e9951747a75e227332b784c93b27
+  size: 335
+  hash: md5
+  path: special_tokens_map.json

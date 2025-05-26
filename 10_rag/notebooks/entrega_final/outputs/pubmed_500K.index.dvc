@@ -1,0 +1,5 @@
+outs:
+- md5: 3098b463f4e320f4ff21cb2e0b1685f2
+  size: 1568003245
+  hash: md5
+  path: pubmed_500K.index
