@@ -9,3 +9,6 @@ peft
 accelerate
 bitsandbytes
 datasets
+einops
+sqlite_vec
+tf-keras

@@ -19,6 +19,7 @@ class TokenizedDataset(Dataset):
             return_tensors="pt",
             add_special_tokens=False,
         )
+        print(item["contents"])
         tokenized_item["id"] = item["id"]
         tokenized_item["PMID"] = item["PMID"]
         return tokenized_item
